@@ -1,0 +1,36 @@
+// Indexed File Allocation Strategy
+
+#include <stdio.h>
+
+int main()
+{
+    int indexBlock, n, blocks[20];
+    int i;
+
+    printf("Enter index block number: ");
+    scanf("%d", &indexBlock);
+
+    printf("Enter number of file blocks: ");
+    scanf("%d", &n);
+
+    // Input file block numbers
+    printf("Enter file block numbers:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &blocks[i]);
+    }
+
+    // Display indexed allocation
+    printf("\nIndexed File Allocation\n");
+    printf("Index Block: %d\n", indexBlock);
+
+    printf("\nFile Blocks:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("Index[%d] --> Block %d\n", i, blocks[i]);
+    }
+
+    return 0;
+}
