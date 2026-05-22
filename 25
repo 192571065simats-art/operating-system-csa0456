@@ -1,0 +1,58 @@
+// UNIX I/O System Calls: fcntl, lseek, stat, opendir, readdir
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+
+int main()
+{
+    int fd;
+    char buffer[100];
+    struct stat fileStat;
+    DIR *dir;
+    struct dirent *entry;
+
+    // open file
+    fd = open("sample.txt", O_CREAT | O_RDWR, 0644);
+
+    write(fd, "Hello UNIX", 11);
+
+    // lseek()
+    lseek(fd, 0, SEEK_SET);
+
+    read(fd, buffer, 11);
+    buffer[11] = '\0';
+
+    printf("File Content: %s\n", buffer);
+
+    // fcntl()
+    int flags = fcntl(fd, F_GETFL);
+    printf("File Flags: %d\n", flags);
+
+    // stat()
+    stat("sample.txt", &fileStat);
+
+    printf("File Size: %ld bytes\n", fileStat.st_size);
+
+    // close file
+    close(fd);
+
+    // opendir() and readdir()
+    dir = opendir(".");
+
+    if(dir != NULL)
+    {
+        printf("\nFiles in current directory:\n");
+
+        while((entry = readdir(dir)) != NULL)
+        {
+            printf("%s\n", entry->d_name);
+        }
+
+        closedir(dir);
+    }
+
+    return 0;
+}
