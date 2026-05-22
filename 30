@@ -1,0 +1,35 @@
+// Thread Concepts: create, join, equal, exit
+
+#include <stdio.h>
+#include <pthread.h>
+
+pthread_t t1, t2;
+
+void *display(void *arg)
+{
+    printf("Thread is running\n");
+
+    // pthread_equal()
+    if(pthread_equal(pthread_self(), t1))
+        printf("This is Thread 1\n");
+    else
+        printf("This is Thread 2\n");
+
+    // pthread_exit()
+    pthread_exit(NULL);
+}
+
+int main()
+{
+    // pthread_create()
+    pthread_create(&t1, NULL, display, NULL);
+    pthread_create(&t2, NULL, display, NULL);
+
+    // pthread_join()
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+
+    printf("Threads completed successfully\n");
+
+    return 0;
+}
