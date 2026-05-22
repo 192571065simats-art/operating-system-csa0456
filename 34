@@ -1,0 +1,64 @@
+// Sequential File Allocation Strategy
+
+#include <stdio.h>
+
+struct Record
+{
+    int id;
+    char name[20];
+};
+
+int main()
+{
+    struct Record rec[10];
+    int n, i, searchId, found = 0;
+
+    printf("Enter number of records: ");
+    scanf("%d", &n);
+
+    // Input records
+    for(i = 0; i < n; i++)
+    {
+        printf("\nEnter Record %d Details\n", i + 1);
+
+        printf("Enter ID: ");
+        scanf("%d", &rec[i].id);
+
+        printf("Enter Name: ");
+        scanf("%s", rec[i].name);
+    }
+
+    // Display records sequentially
+    printf("\nStored Records:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("Record %d -> ID: %d  Name: %s\n",
+               i + 1, rec[i].id, rec[i].name);
+    }
+
+    // Sequential access search
+    printf("\nEnter ID to search: ");
+    scanf("%d", &searchId);
+
+    for(i = 0; i < n; i++)
+    {
+        // Reading previous records one by one
+        if(rec[i].id == searchId)
+        {
+            printf("\nRecord Found:\n");
+            printf("ID: %d\n", rec[i].id);
+            printf("Name: %s\n", rec[i].name);
+
+            found = 1;
+            break;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("Record not found.\n");
+    }
+
+    return 0;
+}
