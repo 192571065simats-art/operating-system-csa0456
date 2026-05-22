@@ -1,0 +1,47 @@
+// Simulation of GREP UNIX Command in C
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    FILE *fp;
+    char line[200], word[50];
+    int lineNo = 1, found = 0;
+
+    // Open file
+    fp = fopen("sample.txt", "r");
+
+    if(fp == NULL)
+    {
+        printf("File cannot be opened.\n");
+        return 1;
+    }
+
+    // Input search word
+    printf("Enter word to search: ");
+    scanf("%s", word);
+
+    printf("\nMatching lines:\n");
+
+    // Read file line by line
+    while(fgets(line, sizeof(line), fp))
+    {
+        if(strstr(line, word) != NULL)
+        {
+            printf("Line %d: %s", lineNo, line);
+            found = 1;
+        }
+
+        lineNo++;
+    }
+
+    if(found == 0)
+    {
+        printf("Word not found.\n");
+    }
+
+    fclose(fp);
+
+    return 0;
+}
